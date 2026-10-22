@@ -152,6 +152,7 @@ router.use((req, res, next) => {
   if (!req.query.size) {
     req.query.size = 500;
   }
+  console.log(`[${moduleId}] invoking defaultRouter`);
   defaultRouter(moduleId, debug, req, res, next);
 });
 
@@ -193,9 +194,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:name/issues/:issueId", async (req, res) => {
+router.get("/:name(.*)/issues/:issueId", async (req, res) => {
   const { name, issueId } = req.params;
   const route = "/:name/issues/:issueId";
+  console.log(`[magazines] ${route} for name=${name} issueId=${issueId}`);
   logEvent(debug, {
     level: "info",
     event: "request.start",
@@ -233,9 +235,10 @@ router.get("/:name/issues/:issueId", async (req, res) => {
   }
 });
 
-router.get("/:name/issues", async (req, res) => {
+router.get("/:name(.*)/issues", async (req, res) => {
   const { name } = req.params;
   const route = "/:name/issues";
+  console.log(`[magazines] ${route} for name=${name}`);
   logEvent(debug, {
     level: "info",
     event: "request.start",
@@ -263,9 +266,10 @@ router.get("/:name/issues", async (req, res) => {
   }
 });
 
-router.get("/:name", async (req, res) => {
+router.get("/:name(.*)", async (req, res) => {
   const { name } = req.params;
   const route = "/:name";
+  console.log(`[magazines] ${route} for name=${name}`);
   logEvent(debug, {
     level: "info",
     event: "request.start",

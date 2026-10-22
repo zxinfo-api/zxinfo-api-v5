@@ -47,6 +47,7 @@ router.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // do logging
+  console.log("[routes] invoking next");
   next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -57,9 +58,18 @@ router.get("/entries/*", entries);
 router.get("/suggest/*", suggest);
 router.get("/search/*", search);
 router.get("/typeahead/*", typeahead);
-router.use("/scr", zx81scr);
-router.use("/social", social);
-router.use("/magazines", magazines);
+router.use("/scr", (req, res, next) => {
+  console.log("[routes] invoking zx81scr router");
+  next();
+}, zx81scr);
+router.use("/social", (req, res, next) => {
+  console.log("[routes] invoking social router");
+  next();
+}, social);
+router.use("/magazines", (req, res, next) => {
+  console.log("[routes] invoking magazines router");
+  next();
+}, magazines);
 
 router.get("/:path", (req, res) => {
   logEvent(debug, {

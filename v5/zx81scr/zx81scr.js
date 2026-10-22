@@ -59,6 +59,7 @@ router.use((req, res, next) => {
   });
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  console.log(`[${moduleId}] invoking next`);
   next();
 });
 
@@ -179,6 +180,7 @@ router.get("/files/:name", (req, res) => {
 });
 
 router.use((err, req, res, next) => {
+  console.log(`[${moduleId}] invoking error handler`);
   if (err.code === "INCORRECT_FILETYPE") {
     logEvent(debugError, {
       level: "error",

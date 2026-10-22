@@ -66,6 +66,7 @@ set -o pipefail
 
 if [[ $TARGET == "prod" ]];
 then
+    ES_URL=https://elastic:mju76YHNES@api.zxinfo.dk
     if [ -z "${ES_URL}" ];
     then
         echo "ES_URL not defined"

@@ -91,6 +91,7 @@ router.use((req, res, next) => {
     method: req.method,
     userAgent: req.headers["user-agent"],
   });
+  console.log(`[${moduleId}] invoking defaultRouter`);
   defaultRouter(moduleId, debug, req, res, next);
 });
 
